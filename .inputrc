@@ -1,0 +1,3 @@
+set completion-ignore-case on
+set history-preserve-point on
+set editing-mode vi

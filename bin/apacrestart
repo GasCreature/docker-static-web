@@ -1,0 +1,23 @@
+#!/bin/bash
+# vim:ts=4:sw=4
+# Copyright(c) 2014 Niqa.net
+# Published under the MIT License - http://opensource.org/licenses/MIT
+#
+# apacrestart - Restart the Apache2 service
+#
+#------------------------------------------
+
+apachectl stop      # This is asynchronous and so
+                    # the following wait loop is needed.
+tries=10
+while [ $tries -ne 0 ] ;do
+    sleep 1
+    (( tries-- ))
+    nprocs=` ps -ef | grep /usr/sbin/apache2 | sed /grep/d | wc -l `
+    if [ $nprocs -eq 0 ] ; then
+        tries=0
+    fi
+done
+
+apachectl start
+
